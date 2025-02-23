@@ -5,7 +5,7 @@ styles.innerHTML = `
     background: rgba(218, 218, 218, 0.897);
     height: 30px;
     width: 80px;
-    position: relative; /* Parent reference */
+    position: relative;
     transition: all 0.2s ease;
     border-radius: 20px;
     box-shadow: 0 0 0px blue;
@@ -13,11 +13,12 @@ styles.innerHTML = `
     align-items: center;
     justify-content: flex-start;
     padding: 5px;
+    cursor: pointer;
   }
 
   .toggle-input {
     position: absolute;
-    opacity: 0; /* Hide checkbox */
+    opacity: 0;
     width: 100%;
     height: 100%;
   }
@@ -30,37 +31,27 @@ styles.innerHTML = `
     border-radius: 50%;
     transition: 0.3s ease;
     scale: 122%;
-    left: 10px; /* Start position */
+    left: 10px;
   }
 
-  /* When checked, move the slider */
   .toggle-input:checked + .toggle-slider {
     margin-left: 50%;
   }
 
- .toggle-container:has(.toggle-input:checked) {
-    background: rgb(0, 76, 255);
-}
-
-  /* Change container background on toggle */
-  .toggle-input:checked + .toggle-slider + .toggle-container {
+  .toggle-container:has(.toggle-input:checked) {
     background: rgb(0, 76, 255);
   }
 `;
 document.head.appendChild(styles);
-
-
-
-
 
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll("[data-toggle]").forEach(el => {
     let size = el.getAttribute("data-toggle-size") || "medium";
     let color = el.getAttribute("data-toggle-color") || "gray";
 
-    // Create the toggle switch
     let container = document.createElement("label");
     container.classList.add("toggle-container", size);
+    container.style.background = color;
 
     let input = document.createElement("input");
     input.type = "checkbox";
@@ -73,5 +64,16 @@ document.addEventListener("DOMContentLoaded", function () {
     container.appendChild(slider);
     el.replaceWith(container);
 
+    // Toggle event listener
+    input.addEventListener("change", function () {
+      container.setAttribute("data-checked", input.checked);
+      container.dispatchEvent(new Event("toggleChange"));
+    });
+
   });
+});
+
+// Example usage: Listen for toggle change
+document.addEventListener("toggleChange", function (e) {
+  console.log("Toggle switched:", e.target.getAttribute("data-checked"));
 });
