@@ -70,15 +70,16 @@ document.addEventListener("DOMContentLoaded", function () {
     container.appendChild(slider);
     el.replaceWith(container);
 
-    input.addEventListener("click", function(){
+    input.addEventListener("click", function () {
       let state = el.getAttribute("data-toggled");
-      if(state){state = false
-      }else{
-        state = true;
+      if (state == "false") {
+        state = "true"
+      } else if (state == "true") {
+        state = "false";
       }
-      
+
       alert(state)
     })
-    
+
   });
 });
