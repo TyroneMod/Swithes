@@ -36,7 +36,7 @@ styles.innerHTML = `
 
   /* Move the slider when checked */
   .toggle-input:checked + .toggle-slider {
-    left: 50px;
+    left: 55px;
   }
 
   /* Change container background on toggle */
