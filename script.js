@@ -63,13 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
     container.appendChild(input);
     container.appendChild(slider);
     el.replaceWith(container);
-
-    // Toggle event listener
-    input.addEventListener("change", function () {
-      container.setAttribute("data-checked", input.checked);
-      container.dispatchEvent(new Event("toggleChange"));
-    });
-
   });
 });
 
