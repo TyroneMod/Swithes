@@ -72,6 +72,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     input.addEventListener("click", function(){
       let state = el.getAttribute("data-toggled");
+      if(state){state = false
+      }else{
+        state = true;
+      }
+      
       alert(state)
     })
     
