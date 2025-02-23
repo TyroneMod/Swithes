@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       alert(state)
-      alert("lol")
+      alert("woah")
     })
 
   });
