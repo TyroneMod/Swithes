@@ -74,12 +74,13 @@ document.addEventListener("DOMContentLoaded", function () {
       let state = el.getAttribute("data-toggled");
       if (state == "false") {
         state = "true"
-      } 
-      if(state == "true") {
+      }
+      if (state == "true") {
         state = "false";
       }
 
       alert(state)
+      el.setAttribute("data-toggled", state)
       alert("woah")
     })
 
