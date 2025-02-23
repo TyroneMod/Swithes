@@ -81,7 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
       let state = input.checked ? "true" : "false";
       container.classList.toggle("active", input.checked);
       container.setAttribute("data-toggled", state);
-      alert(state)
     });
   });
 });
