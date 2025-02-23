@@ -52,6 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let size = el.getAttribute("data-toggle-size") || "medium";
     let color = el.getAttribute("data-toggle-color") || "gray";
 
+    el.setAttribute("data-toggled", "false")
+
     // Create the toggle switch
     let container = document.createElement("label");
     container.classList.add("toggle-container", size);
@@ -69,7 +71,8 @@ document.addEventListener("DOMContentLoaded", function () {
     el.replaceWith(container);
 
     input.addEventListener("click", function(){
-      alert("yo!")
+      let state = el.getAttribute("data-toggled");
+      alert(state)
     })
     
   });
