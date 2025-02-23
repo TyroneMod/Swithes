@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       alert(state)
       el.setAttribute("data-toggled", state)
-      alert("woah")
+      alert("works")
     })
 
   });
