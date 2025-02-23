@@ -1,4 +1,3 @@
-alert('yo')
 // Create a <style> element
 const styles = document.createElement("style");
 styles.innerHTML = `
