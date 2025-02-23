@@ -5,7 +5,7 @@ styles.innerHTML = `
     background: rgba(218, 218, 218, 0.897);
     height: 30px;
     width: 80px;
-    position: relative; /* Parent reference */
+    position: relative;
     transition: all 0.2s ease;
     border-radius: 20px;
     box-shadow: 0 0 0px blue;
@@ -18,7 +18,7 @@ styles.innerHTML = `
 
   .toggle-input {
     position: absolute;
-    opacity: 0; /* Hide checkbox */
+    opacity: 0;
     width: 100%;
     height: 100%;
     cursor: pointer;
@@ -31,16 +31,16 @@ styles.innerHTML = `
     height: 25px;
     border-radius: 50%;
     transition: 0.3s ease;
-    left: 5px; /* Start position */
+    left: 5px;
   }
 
-  /* When checked, move the slider */
+  /* Move the slider when checked */
   .toggle-input:checked + .toggle-slider {
     left: 50px;
   }
 
   /* Change container background on toggle */
-  .toggle-input:checked + .toggle-slider + .toggle-container {
+  .toggle-container.active {
     background: rgb(0, 76, 255);
   }
 `;
@@ -51,8 +51,9 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll("[data-toggle]").forEach(el => {
     let size = el.getAttribute("data-toggle-size") || "medium";
     let color = el.getAttribute("data-toggle-color") || "gray";
-
-    el.setAttribute("data-toggled", "false")
+    
+    // Preserve the initial toggled state if provided
+    let isToggled = el.getAttribute("data-toggled") === "true";
 
     // Create the toggle switch
     let container = document.createElement("label");
@@ -66,23 +67,20 @@ document.addEventListener("DOMContentLoaded", function () {
     let slider = document.createElement("span");
     slider.classList.add("toggle-slider");
 
+    // Set initial state
+    if (isToggled) {
+      input.checked = true;
+      container.classList.add("active");
+    }
+
     container.appendChild(input);
     container.appendChild(slider);
     el.replaceWith(container);
 
-    input.addEventListener("click", function () {
-      let state = el.getAttribute("data-toggled");
-      if (state == "false") {
-        state = "true"
-      }
-      if (state == "true") {
-        state = "false";
-      }
-
-      alert(state)
-      el.setAttribute("data-toggled", state)
-      alert("works")
-    })
-
+    input.addEventListener("change", function () {
+      let state = input.checked ? "true" : "false";
+      container.classList.toggle("active", input.checked);
+      container.setAttribute("data-toggled", state);
+    });
   });
 });
