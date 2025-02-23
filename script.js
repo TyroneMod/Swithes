@@ -5,7 +5,7 @@ styles.innerHTML = `
     background: rgba(218, 218, 218, 0.897);
     height: 30px;
     width: 80px;
-    position: relative;
+    position: relative; /* Parent reference */
     transition: all 0.2s ease;
     border-radius: 20px;
     box-shadow: 0 0 0px blue;
@@ -18,9 +18,10 @@ styles.innerHTML = `
 
   .toggle-input {
     position: absolute;
-    opacity: 0;
+    opacity: 0; /* Hide checkbox */
     width: 100%;
     height: 100%;
+    cursor: pointer;
   }
 
   .toggle-slider {
@@ -30,28 +31,31 @@ styles.innerHTML = `
     height: 25px;
     border-radius: 50%;
     transition: 0.3s ease;
-    scale: 122%;
-    left: 10px;
+    left: 5px; /* Start position */
   }
 
+  /* When checked, move the slider */
   .toggle-input:checked + .toggle-slider {
-    margin-left: 50%;
+    left: 50px;
   }
 
-  .toggle-container:has(.toggle-input:checked) {
+  /* Change container background on toggle */
+  .toggle-input:checked + .toggle-slider + .toggle-container {
     background: rgb(0, 76, 255);
   }
 `;
 document.head.appendChild(styles);
 
+// Auto-generate toggles
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll("[data-toggle]").forEach(el => {
     let size = el.getAttribute("data-toggle-size") || "medium";
     let color = el.getAttribute("data-toggle-color") || "gray";
 
+    // Create the toggle switch
     let container = document.createElement("label");
     container.classList.add("toggle-container", size);
-    container.style.background = color;
+    container.style.backgroundColor = color;
 
     let input = document.createElement("input");
     input.type = "checkbox";
@@ -64,9 +68,4 @@ document.addEventListener("DOMContentLoaded", function () {
     container.appendChild(slider);
     el.replaceWith(container);
   });
-});
-
-// Example usage: Listen for toggle change
-document.addEventListener("toggleChange", function (e) {
-  console.log("Toggle switched:", e.target.getAttribute("data-checked"));
 });
